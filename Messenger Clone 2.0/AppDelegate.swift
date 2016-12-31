@@ -8,18 +8,75 @@
 
 import UIKit
 import Firebase
+import FBSDKCoreKit
+import GoogleSignIn
+import Fabric
+import TwitterKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //firebase configuration
         FIRApp.configure()
+        
+        //need this method
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        //google sign in: assigning a client ID. Necessary step, must be under the FIRApp.configure() in the heirarchy
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self    //tells the app that you are signed in to google
+        
+        //Twitter configuration
+        Fabric.with([Twitter.self])
+
         return true
+    }
+    
+    //func needed by the GIDSignInDelegate
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+        if let err = error {
+            
+            print("Failed to log in to google!!!!", err)
+            return
+        }
+        guard let idToken = user.authentication.idToken else { return }
+        guard let accessToken = user.authentication.accessToken else { return }
+        
+        let credentials = FIRGoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        
+        print("Successfully logged in to google!!!", user)
+        FIRAuth.auth()?.signIn(with: credentials, completion: { (user, error) in
+            if let err = error {
+                
+                print("Failed to create a firebase user with google account!!!", err)
+                return
+                
+            }
+            
+            guard let uid = user?.uid else {return}
+            print("Successfully logged into Firebase with Google account!!!,", uid)
+            
+        })
+    }
+    
+    //need this method and now were ready to put up our FB log in button
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        //this method brings us back from the facebook sign in site back to the app
+        let handle = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        //this method brings us back from the google sign in site back to the app
+        GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return handle
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

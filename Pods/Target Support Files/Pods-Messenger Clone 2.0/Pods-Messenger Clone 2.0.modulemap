@@ -1,0 +1,6 @@
+framework module Pods_Messenger_Clone_2_0 {
+  umbrella header "Pods-Messenger Clone 2.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

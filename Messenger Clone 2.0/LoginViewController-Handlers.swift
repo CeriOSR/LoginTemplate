@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
@@ -137,5 +138,41 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
         dismiss(animated: true, completion: nil)
         
     }
+    
+//    func handleSocialLogin() {
+//        
+//        guard let uid = user?.uid else {
+//            return
+//        }
+//
+//        
+//        let imageName = NSUUID().uuidString
+//        
+//        let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
+//        
+//        
+//        if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {
+//            
+//            storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
+//                
+//                if error != nil {
+//                    print(error ?? "No image found.")
+//                    return
+//                }
+//                
+//                if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
+//                    
+//                    let values = ["name": name, "email": email, "password": password, "profileImageURL": profileImageUrl]
+//                    
+//                    self.registerUserIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
+//                    
+//                }
+//                
+//            })
+//            
+//        }
+//
+//        
+//    }
     
 }

@@ -27,6 +27,7 @@
 		D9418725C8545B3BC2A640D7 /* Pods_Messenger_Clone_2_0.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger_Clone_2_0.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E054C49D1DE542670033979A /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		E054C49F1DE543DE0033979A /* UserCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCollectionViewController.swift; sourceTree = "<group>"; };
+		E0B0D6691E1618940054CC42 /* Messenger Clone 2.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Messenger Clone 2.0.entitlements"; sourceTree = "<group>"; };
 		E0EDAC731DE0E86C00DF9066 /* Messenger Clone 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Messenger Clone 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0EDAC761DE0E86C00DF9066 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0EDAC7B1DE0E86C00DF9066 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		E0EDAC751DE0E86C00DF9066 /* Messenger Clone 2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0D6691E1618940054CC42 /* Messenger Clone 2.0.entitlements */,
 				E0EDAC981DE1292900DF9066 /* Models */,
 				E0EDAC961DE1283700DF9066 /* Controllers */,
 				E0EDAC971DE1285500DF9066 /* Handlers */,
@@ -143,6 +145,7 @@
 				E0EDAC711DE0E86C00DF9066 /* Resources */,
 				72B57E12A7B779A3F9341AF4 /* [CP] Embed Pods Frameworks */,
 				51080B0BB792E065CD69AD54 /* [CP] Copy Pods Resources */,
+				E0005CC51E1786A900F90CC0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -167,6 +170,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = AS82F53XC3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -247,6 +255,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		E0005CC51E1786A900F90CC0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" a999d8e5b76ba3f6d6b636ef2a2d6efc7e33a402 a716c36f29b33a6667eefe15a8ca227cfcb5341284e0ab78a4f7bef4249d79eb";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -387,6 +408,7 @@
 			baseConfigurationReference = A59A360CA663DBA555A7F8C6 /* Pods-Messenger Clone 2.0.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Messenger Clone 2.0/Messenger Clone 2.0.entitlements";
 				DEVELOPMENT_TEAM = AS82F53XC3;
 				INFOPLIST_FILE = "Messenger Clone 2.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -401,6 +423,7 @@
 			baseConfigurationReference = 52DD999218B88DCEE9D6A0EF /* Pods-Messenger Clone 2.0.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Messenger Clone 2.0/Messenger Clone 2.0.entitlements";
 				DEVELOPMENT_TEAM = AS82F53XC3;
 				INFOPLIST_FILE = "Messenger Clone 2.0/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
